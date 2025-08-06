@@ -150,7 +150,7 @@ internal class Program
         Directory.CreateDirectory(outputDir);
 
         // Generate area pages
-        var templatesDir = "templates";
+        var templatesDir = Path.Combine("..", "templates");
         var areaTemplate = Path.Combine(templatesDir, "area-template.hbs");
         
         foreach (var area in transformedData.Areas)

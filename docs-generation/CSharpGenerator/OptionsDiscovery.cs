@@ -10,7 +10,7 @@ public static class OptionsDiscovery
         var commonParams = new List<CommonParameter>();
         
         // Dynamically discover all option definitions from OptionDefinitions.cs
-        var optionDefinitionsPath = Path.Combine("..", "core", "src", "AzureMcp.Core", "Models", "Option", "OptionDefinitions.cs");
+        var optionDefinitionsPath = Path.Combine("..", "..", "core", "src", "AzureMcp.Core", "Models", "Option", "OptionDefinitions.cs");
         
         if (!File.Exists(optionDefinitionsPath))
         {
@@ -140,7 +140,7 @@ public static class OptionsDiscovery
         var mappings = new List<OptionsClassMapping>();
         
         // Discover GlobalOptions properties
-        var globalOptionsPath = Path.Combine("..", "core", "src", "AzureMcp.Core", "Models", "Option", "GlobalOptions.cs");
+        var globalOptionsPath = Path.Combine("..", "..", "core", "src", "AzureMcp.Core", "Models", "Option", "GlobalOptions.cs");
         if (File.Exists(globalOptionsPath))
         {
             var globalOptionsSource = await File.ReadAllTextAsync(globalOptionsPath);
@@ -148,7 +148,7 @@ public static class OptionsDiscovery
         }
         
         // Discover RetryPolicyOptions properties
-        var retryPolicyPath = Path.Combine("..", "core", "src", "AzureMcp.Core", "Models", "Option", "RetryPolicyOptions.cs");
+        var retryPolicyPath = Path.Combine("..", "..", "core", "src", "AzureMcp.Core", "Models", "Option", "RetryPolicyOptions.cs");
         if (File.Exists(retryPolicyPath))
         {
             var retryPolicySource = await File.ReadAllTextAsync(retryPolicyPath);
