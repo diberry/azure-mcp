@@ -17,13 +17,13 @@
     Whether to create a common tools page (default: true)
     
 .PARAMETER CreateCommands
-    Whether to create a commands page (default: false)
+    Whether to create a commands page (default: true)
     
 .EXAMPLE
     ./Generate-MultiPageDocs.ps1
     ./Generate-MultiPageDocs.ps1 -Format json
     ./Generate-MultiPageDocs.ps1 -CreateIndex $false
-    ./Generate-MultiPageDocs.ps1 -CreateCommands $true
+    ./Generate-MultiPageDocs.ps1 -CreateCommands $false
 #>
 
 param(
@@ -31,7 +31,7 @@ param(
     [string]$Format = 'both',
     [bool]$CreateIndex = $true,
     [bool]$CreateCommon = $true,
-    [bool]$CreateCommands = $false
+    [bool]$CreateCommands = $true
 )
 
 # Helper functions for colored output
