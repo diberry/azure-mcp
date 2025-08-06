@@ -16,17 +16,22 @@
 .PARAMETER CreateCommon
     Whether to create a common tools page (default: true)
     
+.PARAMETER CreateCommands
+    Whether to create a commands page (default: false)
+    
 .EXAMPLE
     ./Generate-MultiPageDocs.ps1
     ./Generate-MultiPageDocs.ps1 -Format json
     ./Generate-MultiPageDocs.ps1 -CreateIndex $false
+    ./Generate-MultiPageDocs.ps1 -CreateCommands $true
 #>
 
 param(
     [ValidateSet('json', 'yaml', 'both')]
     [string]$Format = 'both',
     [bool]$CreateIndex = $true,
-    [bool]$CreateCommon = $true
+    [bool]$CreateCommon = $true,
+    [bool]$CreateCommands = $false
 )
 
 # Helper functions for colored output
@@ -107,6 +112,7 @@ try {
     $generatorArgs = @("generate-docs", $cliOutputPath, $outputDir)
     if ($CreateIndex) { $generatorArgs += "--index" }
     if ($CreateCommon) { $generatorArgs += "--common" }
+    if ($CreateCommands) { $generatorArgs += "--commands" }
     
     Push-Location "CSharpGenerator"
     & dotnet run --configuration Release -- $generatorArgs

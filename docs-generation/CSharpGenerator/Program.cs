@@ -15,7 +15,7 @@ internal class Program
             Console.Error.WriteLine("Usage: CSharpGenerator <mode> [arguments...]");
             Console.Error.WriteLine("Modes:");
             Console.Error.WriteLine("  template <template-file> <data-file> <output-file> [additional-context-json]");
-            Console.Error.WriteLine("  generate-docs <cli-output-json> <output-dir> [--index] [--common]");
+            Console.Error.WriteLine("  generate-docs <cli-output-json> <output-dir> [--index] [--common] [--commands]");
             return 1;
         }
 
@@ -116,7 +116,7 @@ internal class Program
     {
         if (args.Length < 2)
         {
-            Console.Error.WriteLine("Usage: CSharpGenerator generate-docs <cli-output-json> <output-dir> [--index] [--common]");
+            Console.Error.WriteLine("Usage: CSharpGenerator generate-docs <cli-output-json> <output-dir> [--index] [--common] [--commands]");
             return 1;
         }
 
@@ -124,6 +124,7 @@ internal class Program
         var outputDir = args[1];
         var generateIndex = args.Contains("--index");
         var generateCommon = args.Contains("--common");
+        var generateCommands = args.Contains("--commands");
 
         // Read CLI output
         var cliOutputJson = await File.ReadAllTextAsync(cliOutputFile);
@@ -170,6 +171,13 @@ internal class Program
         if (generateIndex)
         {
             await GenerateIndexPage(transformedData, outputDir, areaTemplate);
+        }
+
+        // Generate commands page if requested
+        if (generateCommands)
+        {
+            var commandsTemplate = Path.Combine(templatesDir, "commands-template.hbs");
+            await GenerateCommandsPage(transformedData, outputDir, commandsTemplate);
         }
 
         return 0;
@@ -305,6 +313,34 @@ internal class Program
         var outputFile = Path.Combine(outputDir, "index.md");
         await File.WriteAllTextAsync(outputFile, result);
         Console.WriteLine($"Generated index page: index.md");
+    }
+
+    private static async Task GenerateCommandsPage(TransformedData data, string outputDir, string templateFile)
+    {
+        // Use source-discovered parameters if available, otherwise fall back to CLI-discovered
+        var commonParameters = data.SourceDiscoveredCommonParams.Any() 
+            ? data.SourceDiscoveredCommonParams 
+            : ExtractCommonParameters(data.Tools);
+        
+        var commandsPageData = new Dictionary<string, object>
+        {
+            ["version"] = data.Version,
+            ["generatedAt"] = data.GeneratedAt,
+            ["tools"] = data.Tools,
+            ["areas"] = data.Areas,
+            ["commonParameters"] = commonParameters
+        };
+
+        var handlebars = Handlebars.Create();
+        RegisterHelpers(handlebars);
+
+        var templateContent = await File.ReadAllTextAsync(templateFile);
+        var template = handlebars.Compile(templateContent);
+        var result = template(commandsPageData);
+
+        var outputFile = Path.Combine(outputDir, "azmcp-commands.md");
+        await File.WriteAllTextAsync(outputFile, result);
+        Console.WriteLine($"Generated commands page: azmcp-commands.md");
     }
 
     private static List<CommonParameter> ExtractCommonParameters(List<Tool> tools)
