@@ -630,6 +630,7 @@ public class CommonParameter
     public string Description { get; set; } = "";
     public double UsagePercent { get; set; }
     public bool IsHidden { get; set; }
+    public string Source { get; set; } = "";
 }
 
 // Extension method for regex replacement

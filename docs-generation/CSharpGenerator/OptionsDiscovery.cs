@@ -44,7 +44,8 @@ public static class OptionsDiscovery
                     IsRequired = matchingOption.IsRequired,
                     Description = matchingOption.Description,
                     UsagePercent = 100,
-                    IsHidden = matchingOption.IsHidden
+                    IsHidden = matchingOption.IsHidden,
+                    Source = matchingOption.ClassName
                 });
             }
         }
@@ -62,7 +63,8 @@ public static class OptionsDiscovery
                     IsRequired = option.IsRequired,
                     Description = option.Description,
                     UsagePercent = 100,
-                    IsHidden = option.IsHidden
+                    IsHidden = option.IsHidden,
+                    Source = option.ClassName
                 });
             }
         }
@@ -88,50 +90,128 @@ public static class OptionsDiscovery
             Console.WriteLine($"Debug: Found constant {constName} = {paramName}");
         }
         
-        // Step 2: Extract option definitions using a simpler pattern
-        // Look for: public static readonly Option<TYPE> NAME = new(
-        var optionPattern = @"public\s+static\s+readonly\s+Option<([^>]+)>\s+(\w+)\s*=\s*new\s*\(";
-        var optionMatches = Regex.Matches(sourceCode, optionPattern);
+        // Step 2: Find class boundaries for context
+        var classPositions = new List<(string name, int position)>();
+        var classPattern = @"public\s+static\s+class\s+(\w+)";
+        var classMatches = Regex.Matches(sourceCode, classPattern);
+        
+        foreach (Match classMatch in classMatches)
+        {
+            classPositions.Add((classMatch.Groups[1].Value, classMatch.Index));
+        }
+        
+        // Step 3: Use a simple pattern to find option definitions, then parse them individually
+        var simpleOptionPattern = @"public\s+static\s+readonly\s+Option<([^>]+)>\s+(\w+)\s*=\s*new\s*\(";
+        var optionMatches = Regex.Matches(sourceCode, simpleOptionPattern);
         
         foreach (Match optionMatch in optionMatches)
         {
             var type = optionMatch.Groups[1].Value.Trim();
             var propertyName = optionMatch.Groups[2].Value;
             
-            // Try to find the corresponding constant by pattern matching
+            // Find the class this option belongs to
+            var className = "Common";
+            foreach (var (name, position) in classPositions.OrderByDescending(x => x.position))
+            {
+                if (position < optionMatch.Index)
+                {
+                    className = name;
+                    break;
+                }
+            }
+            
+            // Extract the full option definition by finding the matching closing parenthesis and brace
+            int startPos = optionMatch.Index;
+            int currentPos = optionMatch.Index + optionMatch.Length;
+            
+            // Find the parameter list inside new(...) 
+            int parenCount = 1;
+            int constructorStart = currentPos;
+            
+            while (currentPos < sourceCode.Length && parenCount > 0)
+            {
+                if (sourceCode[currentPos] == '(') parenCount++;
+                else if (sourceCode[currentPos] == ')') parenCount--;
+                currentPos++;
+            }
+            
+            var constructorContent = sourceCode.Substring(constructorStart, currentPos - constructorStart - 1);
+            
+            // Parse the constructor parameters
             var paramName = "";
             var description = "";
+            var isRequired = false;
+            var isHidden = false;
             
-            // Look for a constant that ends with "Name" and matches this property
-            var possibleConstName = propertyName + "Name";
-            if (constantMap.ContainsKey(possibleConstName))
+            // Look for the parameter pattern: $"--{ConstantName}"
+            var parameterPattern = @"\$""--\{(\w+)\}""";
+            var paramMatch = Regex.Match(constructorContent, parameterPattern);
+            if (paramMatch.Success)
             {
-                paramName = constantMap[possibleConstName];
+                var constReference = paramMatch.Groups[1].Value;
+                paramName = constantMap.ContainsKey(constReference) ? constantMap[constReference] : constReference.ToLowerInvariant();
             }
-            else
+            
+            // Extract description - look for quoted strings that aren't the parameter name
+            var descriptionPattern = @"""([^""]{10,})""";
+            var descMatches = Regex.Matches(constructorContent, descriptionPattern);
+            var descriptions = new List<string>();
+            
+            foreach (Match descMatch in descMatches)
             {
-                // Fall back to converting property name
-                paramName = InferParameterNameFromProperty(propertyName);
+                var desc = descMatch.Groups[1].Value;
+                if (!desc.StartsWith("--") && desc.Length > 10) // Skip parameter names, keep descriptions
+                {
+                    descriptions.Add(desc);
+                }
             }
             
-            // For now, set default description - could be enhanced later
-            description = $"Parameter for {propertyName}";
+            description = string.Join(" ", descriptions);
             
-            Console.WriteLine($"Debug: Found option: {propertyName} -> {paramName} ({type})");
+            // Check for properties after the constructor
+            // Look ahead for the { ... } block
+            while (currentPos < sourceCode.Length && char.IsWhiteSpace(sourceCode[currentPos]))
+                currentPos++;
+                
+            if (currentPos < sourceCode.Length && sourceCode[currentPos] == '{')
+            {
+                int braceStart = currentPos + 1;
+                int braceCount = 1;
+                currentPos++;
+                
+                while (currentPos < sourceCode.Length && braceCount > 0)
+                {
+                    if (sourceCode[currentPos] == '{') braceCount++;
+                    else if (sourceCode[currentPos] == '}') braceCount--;
+                    currentPos++;
+                }
+                
+                var propertiesContent = sourceCode.Substring(braceStart, currentPos - braceStart - 1);
+                isRequired = propertiesContent.Contains("IsRequired = true");
+                isHidden = propertiesContent.Contains("IsHidden = true");
+            }
+            
+            if (string.IsNullOrEmpty(description))
+            {
+                description = $"Parameter for {propertyName}";
+            }
+            
+            Console.WriteLine($"Debug: Found option in {className}: {propertyName} -> {paramName} ({type})");
+            Console.WriteLine($"Debug: Description: {description.Substring(0, Math.Min(50, description.Length))}...");
             
             options.Add(new OptionDefinition
             {
-                ClassName = "Unknown", // Could be enhanced to detect class context
+                ClassName = className,
                 PropertyName = propertyName,
                 ParameterName = paramName,
                 Type = type,
                 Description = description,
-                IsRequired = false, // Default, could be enhanced
-                IsHidden = false    // Default, could be enhanced
+                IsRequired = isRequired,
+                IsHidden = isHidden
             });
         }
         
-        Console.WriteLine($"Debug: Found {constMatches.Count} constants and {optionMatches.Count} options");
+        Console.WriteLine($"Debug: Found {constMatches.Count} constants and {options.Count} options");
         return options;
     }
     
