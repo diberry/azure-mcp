@@ -1,0 +1,84 @@
+{{#if generateAreaPage}}
+# {{areaName}} Tools
+
+**Area:** {{areaName}}  
+**Description:** {{areaData.description}}  
+**Tool Count:** {{areaData.toolCount}}  
+**Generated:** {{formatDate generatedAt}}  
+**Version:** {{version}}
+
+## Quick Navigation
+
+{{#each tools}}
+- [{{toolFamily command}}: {{operation command}}](#{{kebabCase (concat (toolFamily command) ": " (operation command))}})
+{{/each}}
+
+## Tools
+
+{{#each tools}}
+## {{toolFamily command}}: {{operation command}}
+
+**Source:** `{{command}}`
+
+{{description}}
+
+#### Parameters
+
+{{#if option}}
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+{{#each option}}
+| `{{name}}` | {{type}} | {{#if required}}Yes{{else}}No{{/if}} | {{description}} |
+{{/each}}
+{{else}}
+No parameters
+{{/if}}
+
+---
+
+{{/each}}
+
+Documentation generated from Azure MCP Server source code
+{{/if}}
+
+{{#if generateIndex}}
+# Azure MCP Tools Documentation
+
+**Generated:** {{formatDate generatedAt}}  
+**Version:** {{version}}  
+**Total Tools:** {{tools.length}}  
+**Total Areas:** {{getAreaCount areas}}
+
+## Tool Areas
+
+This documentation is organized by tool areas. Click on any area below to see the detailed documentation for tools in that area.
+
+| Area | Tools | Description |
+|------|-------|-------------|
+{{#each areas}}
+| [{{@key}}]({{@key}}.md) | {{toolCount}} | {{description}} |
+{{/each}}
+
+## Common Parameters
+
+Many Azure MCP tools share common parameters for authentication, targeting, and configuration.
+See the [Common Parameters](common-tools.md) documentation for details on shared parameters.
+
+## Quick Stats
+
+- **Total Documentation Pages:** {{add (getAreaCount areas) 1}} (including this index)
+- **Average Tools per Area:** {{round (divide tools.length (getAreaCount areas)) 1}}
+
+## All Areas
+
+{{#each areas}}
+### [{{@key}}]({{@key}}.md)
+
+{{description}}
+
+**Tools:** {{toolCount}}
+
+{{/each}}
+
+Documentation generated from Azure MCP Server source code
+{{/if}}

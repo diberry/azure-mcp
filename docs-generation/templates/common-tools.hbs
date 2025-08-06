@@ -1,0 +1,42 @@
+# Common Parameters
+
+**Generated:** {{formatDate generatedAt}}  
+**Version:** {{version}}
+
+This page documents the common parameters that are shared across many Azure MCP tools.
+
+## Common Parameters Reference
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+{{#each commonParameters}}
+| `{{name}}` | {{type}} | {{#if isRequired}}Yes{{else}}No{{/if}} | {{description}} |
+{{/each}}
+
+## Parameter Details
+
+{{#each commonParameters}}
+### {{name}}
+
+**Type:** {{type}}  
+**Required:** {{#if isRequired}}Yes{{else}}No{{/if}}
+{{#if defaultValue}}
+**Default:** `{{defaultValue}}`
+{{/if}}
+
+{{description}}
+
+{{#if enumValues}}
+**Valid values:**
+{{#each enumValues}}
+- `{{this}}`
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+---
+
+*This documentation is automatically generated from the Azure MCP Server source code.*
