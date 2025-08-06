@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using HandlebarsDotNet;
@@ -578,6 +579,55 @@ internal class Program
         handlebars.RegisterHelper("concat", (context, arguments) =>
         {
             return string.Join("", arguments.Select(arg => arg?.ToString() ?? string.Empty));
+        });
+        
+        // Group by property helper
+        handlebars.RegisterHelper("groupBy", (context, arguments) =>
+        {
+            if (arguments.Length < 2) return new Dictionary<string, object>();
+            
+            var collection = arguments[0];
+            var propertyName = arguments[1]?.ToString();
+            
+            if (propertyName == null) return new Dictionary<string, object>();
+            
+            var grouped = new Dictionary<string, List<object>>();
+            
+            if (collection is IEnumerable<CommonParameter> commonParams)
+            {
+                foreach (var item in commonParams)
+                {
+                    var keyValue = typeof(CommonParameter).GetProperty(propertyName)?.GetValue(item)?.ToString() ?? "Unknown";
+                    
+                    if (!grouped.ContainsKey(keyValue))
+                        grouped[keyValue] = new List<object>();
+                    
+                    grouped[keyValue].Add(item);
+                }
+            }
+            else if (collection is System.Collections.IEnumerable enumerable)
+            {
+                foreach (var item in enumerable)
+                {
+                    if (item == null) continue;
+                    
+                    var keyValue = "Unknown";
+                    var itemType = item.GetType();
+                    var property = itemType.GetProperty(propertyName);
+                    
+                    if (property != null)
+                    {
+                        keyValue = property.GetValue(item)?.ToString() ?? "Unknown";
+                    }
+                    
+                    if (!grouped.ContainsKey(keyValue))
+                        grouped[keyValue] = new List<object>();
+                    
+                    grouped[keyValue].Add(item);
+                }
+            }
+            
+            return grouped;
         });
     }
 }
