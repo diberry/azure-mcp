@@ -600,6 +600,29 @@ internal class Program
             return toolFamily;
         });
 
+        // Parse sub-tool family (e.g., "blob" from "azmcp storage blob batch set-tier")
+        handlebars.RegisterHelper("subToolFamily", (context, arguments) =>
+        {
+            if (arguments.Length == 0 || arguments[0] == null)
+                return string.Empty;
+
+            var command = arguments[0].ToString() ?? string.Empty;
+            var parts = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            
+            if (parts.Length < 3) // Need at least "azmcp area operation"
+                return string.Empty;
+                
+            // Skip "azmcp" and area name, get the first sub-component
+            if (parts.Length >= 3)
+            {
+                // For "azmcp storage blob batch set-tier" -> return "blob"
+                // For "azmcp storage account list" -> return "account"
+                return char.ToUpper(parts[2][0]) + parts[2].Substring(1).ToLower();
+            }
+            
+            return string.Empty;
+        });
+
         // Parse operation from command
         handlebars.RegisterHelper("operation", (context, arguments) =>
         {
@@ -609,6 +632,24 @@ internal class Program
             var command = arguments[0].ToString() ?? string.Empty;
             var (_, operation) = ParseCommand(command);
             return operation;
+        });
+
+        // Parse sub-operation (everything after the sub-tool family)
+        handlebars.RegisterHelper("subOperation", (context, arguments) =>
+        {
+            if (arguments.Length == 0 || arguments[0] == null)
+                return string.Empty;
+
+            var command = arguments[0].ToString() ?? string.Empty;
+            var parts = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            
+            if (parts.Length < 4) // Need at least "azmcp area subtool operation"
+                return string.Empty;
+                
+            // For "azmcp storage blob batch set-tier" -> return "batch set-tier"
+            // Skip "azmcp", area name, and sub-tool family
+            var remainingParts = parts.Skip(3).ToArray();
+            return string.Join(" ", remainingParts);
         });
 
         // Concatenate strings

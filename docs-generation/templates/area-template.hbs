@@ -10,13 +10,13 @@
 ## Quick Navigation
 
 {{#each tools}}
-- [{{toolFamily command}}: {{operation command}}](#{{kebabCase (concat (toolFamily command) ": " (operation command))}})
+- [{{subToolFamily command}}: {{subOperation command}}](#{{kebabCase (concat (subToolFamily command) ": " (subOperation command))}})
 {{/each}}
 
 ## Tools
 
 {{#each tools}}
-## {{toolFamily command}}: {{operation command}}
+## {{subToolFamily command}}: {{subOperation command}}
 
 **Source:** `{{command}}`
 
