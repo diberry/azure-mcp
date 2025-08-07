@@ -537,43 +537,6 @@ internal class Program
             return Math.Round(num, precision);
         });
 
-        // Filter tools by area helper
-        handlebars.RegisterHelper("filterToolsByArea", (context, arguments) =>
-        {
-            if (arguments.Length < 2) return new object[0];
-
-            var tools = arguments[0];
-            var areaName = arguments[1]?.ToString();
-
-            if (tools is JsonElement toolsElement && toolsElement.ValueKind == JsonValueKind.Array)
-            {
-                var filteredTools = new List<object>();
-                foreach (var tool in toolsElement.EnumerateArray())
-                {
-                    if (tool.TryGetProperty("area", out var areaProperty) && 
-                        areaProperty.GetString() == areaName)
-                    {
-                        filteredTools.Add(tool);
-                    }
-                }
-                return filteredTools;
-            }
-
-            return new object[0];
-        });
-
-        // JSON helper
-        handlebars.RegisterHelper("toJson", (context, arguments) =>
-        {
-            if (arguments.Length == 0 || arguments[0] == null)
-                return "null";
-
-            return JsonSerializer.Serialize(arguments[0], new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-        });
-
         // Required helper for boolean display
         handlebars.RegisterHelper("requiredIcon", (context, arguments) =>
         {
@@ -589,16 +552,6 @@ internal class Program
             return "❌";
         });
 
-        // Parse tool family from command
-        handlebars.RegisterHelper("toolFamily", (context, arguments) =>
-        {
-            if (arguments.Length == 0 || arguments[0] == null)
-                return string.Empty;
-
-            var command = arguments[0].ToString() ?? string.Empty;
-            var (toolFamily, _) = ParseCommand(command);
-            return toolFamily;
-        });
 
         // Parse sub-tool family (e.g., "blob" from "azmcp storage blob batch set-tier")
         handlebars.RegisterHelper("subToolFamily", (context, arguments) =>
@@ -623,16 +576,7 @@ internal class Program
             return string.Empty;
         });
 
-        // Parse operation from command
-        handlebars.RegisterHelper("operation", (context, arguments) =>
-        {
-            if (arguments.Length == 0 || arguments[0] == null)
-                return string.Empty;
 
-            var command = arguments[0].ToString() ?? string.Empty;
-            var (_, operation) = ParseCommand(command);
-            return operation;
-        });
 
         // Parse sub-operation (everything after the sub-tool family)
         handlebars.RegisterHelper("subOperation", (context, arguments) =>
