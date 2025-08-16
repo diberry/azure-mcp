@@ -146,3 +146,15 @@ When modifying this system:
 2. Ensure all tests pass with `dotnet build`
 3. Update templates and generator logic together
 4. Test with representative Azure MCP CLI data
+
+## Run map parameter name
+
+```
+dotnet run --project CSharpMapParameterName/CSharpMapParameterName.csproj
+```
+
+## Run term extraction from live docs
+
+```
+dotnet run --project CSharpTermRefinement/CSharpTermRefinement.csproj
+```

@@ -11,10 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Handlebars.Net" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="../Shared/Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="2.1.6" />
+    <!-- Explicitly set Handlebars.Net version to 2.1.6 -->
   </ItemGroup>
 
 </Project>

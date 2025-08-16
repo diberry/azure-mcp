@@ -9,9 +9,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        string cliOutputPath = "../generated/cli-output.json";
-        string parametersPath = "../Term-refinement/data/parameters.json";
-        string outputPath = "./data/mapped-parameters.json"; // Updated path to save the file in the ./data subdirectory
+        string cliOutputPath = "./generated/cli-output.json";
+        string parametersPath = "./generated/parameters.json";
+        string outputPath = "./generated/mapped-parameters.json"; // Updated path to save the file in the ./data subdirectory
 
         try
         {

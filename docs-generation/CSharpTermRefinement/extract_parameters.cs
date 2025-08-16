@@ -15,15 +15,15 @@ class Program
         string mode = args.Length > 0 ? args[0].ToLower() : "full";
         string repoUrl = "https://github.com/MicrosoftDocs/azure-dev-docs";
         string branch = "main";
-        string outputDirectory = "./data";
+        string outputDirectory = "./generated/term-refinement";
         Directory.CreateDirectory(outputDirectory);
-        string outputFile = Path.Combine(outputDirectory, "parameters.json");
+        string outputFile = Path.Combine(outputDirectory, "../parameters.json");
 
         if (mode == "download" || mode == "full")
         {
             Console.WriteLine("Fetching markdown files...");
-            var markdownFiles = await FetchMarkdownFiles(repoUrl, branch);
-            await File.WriteAllTextAsync(Path.Combine(outputDirectory, "markdown_files.json"), JsonSerializer.Serialize(markdownFiles, new JsonSerializerOptions { WriteIndented = true }));
+            var markdownFiles = await FetchMarkdownFiles(repoUrl, branch, outputDirectory);
+            await File.WriteAllTextAsync(Path.Combine(outputDirectory, "../markdown_files.json"), JsonSerializer.Serialize(markdownFiles, new JsonSerializerOptions { WriteIndented = true }));
             Console.WriteLine("Markdown files downloaded and saved.");
 
             if (mode == "download") return;
@@ -32,7 +32,7 @@ class Program
         if (mode == "process" || mode == "full")
         {
             Console.WriteLine("Processing markdown files...");
-            var markdownFiles = JsonSerializer.Deserialize<List<string>>(await File.ReadAllTextAsync(Path.Combine(outputDirectory, "markdown_files.json")));
+            var markdownFiles = JsonSerializer.Deserialize<List<string>>(await File.ReadAllTextAsync(Path.Combine(outputDirectory, "../markdown_files.json")));
 
             // Ensure markdownFiles is not null before iterating
             if (markdownFiles == null || markdownFiles.Count == 0)
@@ -77,7 +77,7 @@ class Program
     }
 
     // Update FetchMarkdownFiles to download and save .md files
-    static async Task<List<string>> FetchMarkdownFiles(string repoUrl, string branch)
+    static async Task<List<string>> FetchMarkdownFiles(string repoUrl, string branch, string outputDirectory)
     {
         string apiUrl = $"https://api.github.com/repos/{repoUrl.Split('/')[3]}/{repoUrl.Split('/')[4]}/contents/articles/azure-mcp-server/tools?ref={branch}";
         using var client = new HttpClient();
@@ -100,7 +100,7 @@ class Program
                         if (nameElement.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(nameElement.GetString()))
                         {
                             string fileName = nameElement.GetString()!; // Safe to use with null-forgiving operator
-                            string filePath = Path.Combine("./data", fileName);
+                            string filePath = Path.Combine(outputDirectory, fileName);
 
                             // Download the markdown file content
                             var fileContent = await client.GetStringAsync(downloadUrl);
@@ -193,7 +193,8 @@ class Program
                 Console.WriteLine($"    Column {j + 1}: {parts[j]}");
             }
 
-            if (parts.Length >= 3) // Adjusted to check for at least 3 columns
+            if (parts.Length >= 3 // Adjusted to check for at least 3 columns
+            )
             {
                 parameters.Add(new Dictionary<string, object>
                 {
