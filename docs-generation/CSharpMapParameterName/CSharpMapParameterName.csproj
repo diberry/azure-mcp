@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Handlebars.Net" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="../Shared/Shared.csproj" />
   </ItemGroup>

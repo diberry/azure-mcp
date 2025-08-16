@@ -1,0 +1,506 @@
+[
+  {
+    "name": "Account",
+    "required": "Required",
+    "description": "The name of the Azure Storage account to create. Must be globally unique, 3-24 characters, lowercase letters and numbers only.",
+    "file": "./data/storage.md",
+    "line": 37
+  },
+  {
+    "name": "Account name",
+    "required": "Required",
+    "description": "The name of the App Configuration store.",
+    "file": "./data/app-configuration.md",
+    "line": 37
+  },
+  {
+    "name": "Action",
+    "required": "Required",
+    "description": "The action to perform. Options include: \u0027all\u0027 (best practices for both code generation and deployment, only for static-web-app), \u0027code-generation\u0027 (best practices for code generation, for general and azurefunctions), or \u0027deployment\u0027 (best practices for deployment, for general and azurefunctions).",
+    "file": "./data/azure-best-practices.md",
+    "line": 38
+  },
+  {
+    "name": "Allow public access to blobs",
+    "required": "Optional",
+    "description": "Whether to allow public access to blobs in the storage account.",
+    "file": "./data/storage.md",
+    "line": 43
+  },
+  {
+    "name": "Command",
+    "required": "Required",
+    "description": "The Azure CLI command to execute (without the \u0027az\u0027 prefix). For a complete list of Azure CLI commands, see the [Azure CLI reference documentation](/cli/azure/reference-index).",
+    "file": "./data/azure-cli-extension.md",
+    "line": 33
+  },
+  {
+    "name": "Command",
+    "required": "Required",
+    "description": "The Azure Developer CLI command to execute (without the \u0027azd\u0027 prefix). For a complete list of Azure Developer CLI commands, see the [Azure Developer CLI reference documentation](/azure/developer/azure-developer-cli/reference).",
+    "file": "./data/azure-developer-cli.md",
+    "line": 36
+  },
+  {
+    "name": "Datadog resource",
+    "required": "Required",
+    "description": "The name of the Datadog resource in Azure.",
+    "file": "./data/azure-native-isv.md",
+    "line": 44
+  },
+  {
+    "name": "Default access tier for blobs",
+    "required": "Optional",
+    "description": "The default access tier for blob storage. Valid values: Hot, Cool.",
+    "file": "./data/storage.md",
+    "line": 41
+  },
+  {
+    "name": "Description",
+    "required": "Required",
+    "description": "A description of the test and its purpose.",
+    "file": "./data/azure-load-testing.md",
+    "line": 48
+  },
+  {
+    "name": "Display name",
+    "required": "Required",
+    "description": "A user-friendly name for the new load test.",
+    "file": "./data/azure-load-testing.md",
+    "line": 47
+  },
+  {
+    "name": "Duration",
+    "required": "Required",
+    "description": "The total duration of the test in seconds.",
+    "file": "./data/azure-load-testing.md",
+    "line": 51
+  },
+  {
+    "name": "Enable hierarchical namespace (Data Lake)",
+    "required": "Optional",
+    "description": "Whether to enable hierarchical namespace (Data Lake Storage Gen2) for the storage account.",
+    "file": "./data/storage.md",
+    "line": 44
+  },
+  {
+    "name": "Endpoint",
+    "required": "Required",
+    "description": "The URL endpoint to test.",
+    "file": "./data/azure-load-testing.md",
+    "line": 49
+  },
+  {
+    "name": "Host pool",
+    "required": "[Conditionally](#conditional-parameters) required",
+    "description": "The name of the Azure Virtual Desktop host pool. This is the unique name you choose for your host pool.",
+    "file": "./data/azure-virtual-desktop.md",
+    "line": 58
+  },
+  {
+    "name": "Host pool resource ID",
+    "required": "[Conditionally](#conditional-parameters) required",
+    "description": "The Azure resource ID of the host pool. When you provide this ID, the server uses it instead of searching by name.",
+    "file": "./data/azure-virtual-desktop.md",
+    "line": 59
+  },
+  {
+    "name": "Include service instruction templates",
+    "required": "Optional",
+    "description": "Whether to include service instruction templates in the response for deployment guidance.",
+    "file": "./data/azure-marketplace.md",
+    "line": 48
+  },
+  {
+    "name": "Include stop sold plans",
+    "required": "Optional",
+    "description": "Whether to include plans that are no longer available for purchase in the results.",
+    "file": "./data/azure-marketplace.md",
+    "line": 42
+  },
+  {
+    "name": "Key",
+    "required": "Required",
+    "description": "The key name of the setting to delete.",
+    "file": "./data/app-configuration.md",
+    "line": 38
+  },
+  {
+    "name": "Key",
+    "required": "Required",
+    "description": "The name of the key to create.",
+    "file": "./data/key-vault-key.md",
+    "line": 40
+  },
+  {
+    "name": "Key type",
+    "required": "Required",
+    "description": "The type of key to create (RSA, EC).",
+    "file": "./data/key-vault-key.md",
+    "line": 41
+  },
+  {
+    "name": "Kind",
+    "required": "Optional",
+    "description": "The storage account kind. Valid values: Storage, StorageV2, BlobStorage, FileStorage, BlockBlobStorage.",
+    "file": "./data/storage.md",
+    "line": 40
+  },
+  {
+    "name": "Label",
+    "required": "Optional",
+    "description": "The label of the setting to delete.",
+    "file": "./data/app-configuration.md",
+    "line": 39
+  },
+  {
+    "name": "Language",
+    "required": "Optional",
+    "description": "The language code for localized product information (for example, \u0027en-us\u0027, \u0027fr-fr\u0027).",
+    "file": "./data/azure-marketplace.md",
+    "line": 43
+  },
+  {
+    "name": "License name",
+    "required": "Optional",
+    "description": "A filter to specify the license type of the models to retrieve.",
+    "file": "./data/azure-foundry.md",
+    "line": 40
+  },
+  {
+    "name": "Lookup offer in tenant level",
+    "required": "Optional",
+    "description": "Whether to look up the offer at the tenant level for organization-specific information.",
+    "file": "./data/azure-marketplace.md",
+    "line": 45
+  },
+  {
+    "name": "Market",
+    "required": "Optional",
+    "description": "The market or region code to get region-specific pricing and availability (for example, \u0027US\u0027, \u0027FR\u0027).",
+    "file": "./data/azure-marketplace.md",
+    "line": 44
+  },
+  {
+    "name": "Model name",
+    "required": "Optional",
+    "description": "The name of the model to search for.",
+    "file": "./data/azure-foundry.md",
+    "line": 41
+  },
+  {
+    "name": "Namespace",
+    "required": "Required",
+    "description": "The fully qualified Service Bus namespace host name.",
+    "file": "./data/service-bus.md",
+    "line": 36
+  },
+  {
+    "name": "None",
+    "required": "N/A",
+    "description": "This command requires no parameters and lists all available tools.",
+    "file": "./data/azure-mcp-tool.md",
+    "line": 35
+  },
+  {
+    "name": "Plan ID",
+    "required": "Optional",
+    "description": "The specific plan identifier within the product to get detailed plan information.",
+    "file": "./data/azure-marketplace.md",
+    "line": 46
+  },
+  {
+    "name": "Pricing audience",
+    "required": "Optional",
+    "description": "The target audience for pricing information (for example, \u0027public\u0027, \u0027private\u0027, \u0027government\u0027).",
+    "file": "./data/azure-marketplace.md",
+    "line": 49
+  },
+  {
+    "name": "Product ID",
+    "required": "Required",
+    "description": "The unique identifier for the marketplace product you want to retrieve information about.",
+    "file": "./data/azure-marketplace.md",
+    "line": 41
+  },
+  {
+    "name": "Publisher name",
+    "required": "Optional",
+    "description": "A filter to specify the publisher of the models to retrieve.",
+    "file": "./data/azure-foundry.md",
+    "line": 39
+  },
+  {
+    "name": "Queue name",
+    "required": "Required",
+    "description": "The queue name to get details for.",
+    "file": "./data/service-bus.md",
+    "line": 37
+  },
+  {
+    "name": "Ramp-up time",
+    "required": "Required",
+    "description": "The time period over which to gradually increase load to the specified number of virtual users.",
+    "file": "./data/azure-load-testing.md",
+    "line": 52
+  },
+  {
+    "name": "Region",
+    "required": "Required",
+    "description": "The Azure region where you want to create the storage account (for example, \u0027eastus\u0027, \u0027westus2\u0027).",
+    "file": "./data/storage.md",
+    "line": 38
+  },
+  {
+    "name": "Require secure transfer (HTTPS)",
+    "required": "Optional",
+    "description": "Whether to require secure transfer (HTTPS) for the storage account.",
+    "file": "./data/storage.md",
+    "line": 42
+  },
+  {
+    "name": "Resource",
+    "required": "Required",
+    "description": "The type of Azure resource to get best practices for. Options include: \u0027general\u0027 (general Azure best practices), \u0027azurefunctions\u0027 (Azure Functions specific best practices), or \u0027static-web-app\u0027 (Azure Static Web Apps specific best practices).",
+    "file": "./data/azure-best-practices.md",
+    "line": 37
+  },
+  {
+    "name": "Resource group",
+    "required": "Optional",
+    "description": "The name of the Azure resource group to scope the scan to a specific resource group.",
+    "file": "./data/azure-compliance-quick-review.md",
+    "line": 37
+  },
+  {
+    "name": "Resource group",
+    "required": "Required",
+    "description": "The resource group where you want to create the load test.",
+    "file": "./data/azure-load-testing.md",
+    "line": 44
+  },
+  {
+    "name": "Resource group",
+    "required": "Required",
+    "description": "The name of the Azure resource group containing the Datadog resource.",
+    "file": "./data/azure-native-isv.md",
+    "line": 43
+  },
+  {
+    "name": "Resource group",
+    "required": "Required",
+    "description": "The resource group that contains the SQL server.",
+    "file": "./data/azure-sql.md",
+    "line": 46
+  },
+  {
+    "name": "Resource group",
+    "required": "Required",
+    "description": "The name of the Azure resource group.",
+    "file": "./data/postgresql.md",
+    "line": 37
+  },
+  {
+    "name": "Resource type",
+    "required": "Required",
+    "description": "The Azure resource type in format \u0027{ResourceProvider}/{ResourceType}\u0027 (e.g., \u0027Microsoft.Storage/storageAccounts\u0027, \u0027Microsoft.Compute/virtualMachines\u0027)",
+    "file": "./data/azure-bicep-schema.md",
+    "line": 37
+  },
+  {
+    "name": "Scope",
+    "required": "Required",
+    "description": "The scope to list role assignments for. Can be a subscription, resource group, or resource.",
+    "file": "./data/azure-rbac.md",
+    "line": 38
+  },
+  {
+    "name": "Search for free playground",
+    "required": "Optional",
+    "description": "If set to true, returns a list of models from Azure AI Foundry that can also be used with GitHub inference endpoint and GitHub PAT token. If false, returns a list of models from Azure AI Foundry, regardless of GitHub support. To learn more, see [GitHub Models](https://docs.github.com/en/github-models/use-github-models/prototyping-with-ai-models#experimenting-with-ai-models-in-the-playground).",
+    "file": "./data/azure-foundry.md",
+    "line": 38
+  },
+  {
+    "name": "Server",
+    "required": "Required",
+    "description": "The PostgreSQL server to be accessed.",
+    "file": "./data/postgresql.md",
+    "line": 39
+  },
+  {
+    "name": "Server name",
+    "required": "Required",
+    "description": "The name of the SQL server to list Microsoft Entra administrators for.",
+    "file": "./data/azure-sql.md",
+    "line": 47
+  },
+  {
+    "name": "SKU",
+    "required": "Optional",
+    "description": "The storage account SKU. Valid values: Standard_LRS, Standard_GRS, Standard_RAGRS, Standard_ZRS, Premium_LRS, Premium_ZRS, Standard_GZRS, Standard_RAGZRS.",
+    "file": "./data/storage.md",
+    "line": 39
+  },
+  {
+    "name": "SKU ID",
+    "required": "Optional",
+    "description": "The specific pricing SKU identifier for a specific product variant or configuration.",
+    "file": "./data/azure-marketplace.md",
+    "line": 47
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/ai-search.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID of the subscription containing the App Configuration store.",
+    "file": "./data/app-configuration.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID or name of your Azure subscription containing the AKS clusters.",
+    "file": "./data/azure-aks.md",
+    "line": 44
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID of the subscription containing the Redis clusters.",
+    "file": "./data/azure-cache-for-redis.md",
+    "line": 38
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name to scan for compliance issues.",
+    "file": "./data/azure-compliance-quick-review.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/azure-data-explorer.md",
+    "line": 45
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID or name of the subscription where you want to create the load test.",
+    "file": "./data/azure-load-testing.md",
+    "line": 43
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID of the subscription containing the Datadog resource.",
+    "file": "./data/azure-native-isv.md",
+    "line": 42
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID of the Azure subscription containing the resources.",
+    "file": "./data/azure-rbac.md",
+    "line": 37
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The ID or name of your Azure subscription that contains the SQL server.",
+    "file": "./data/azure-sql.md",
+    "line": 45
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/cosmos-db.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/key-vault-key.md",
+    "line": 38
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/monitor.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/postgresql.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/resource-group.md",
+    "line": 36
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The Azure subscription ID or name.",
+    "file": "./data/service-bus.md",
+    "line": 35
+  },
+  {
+    "name": "Subscription",
+    "required": "Required",
+    "description": "The name or ID of the user subscription.",
+    "file": "./data/subscription.md",
+    "line": 33
+  },
+  {
+    "name": "Test ID",
+    "required": "Required",
+    "description": "A unique identifier for the test.",
+    "file": "./data/azure-load-testing.md",
+    "line": 46
+  },
+  {
+    "name": "Test resource name",
+    "required": "Required",
+    "description": "The name of the test resource to use.",
+    "file": "./data/azure-load-testing.md",
+    "line": 45
+  },
+  {
+    "name": "User name",
+    "required": "Required",
+    "description": "The user name to access PostgreSQL server.",
+    "file": "./data/postgresql.md",
+    "line": 38
+  },
+  {
+    "name": "Vault",
+    "required": "Required",
+    "description": "The name of the Key Vault.",
+    "file": "./data/key-vault-key.md",
+    "line": 39
+  },
+  {
+    "name": "Virtual users",
+    "required": "Required",
+    "description": "The number of concurrent virtual users for the load test.",
+    "file": "./data/azure-load-testing.md",
+    "line": 50
+  }
+]
