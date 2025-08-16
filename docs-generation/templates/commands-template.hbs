@@ -40,10 +40,10 @@ The following parameters are available across multiple commands:
 {{#each (groupBy commonParameters "Source")}}
 ### {{@key}} Parameters
 
-| Parameter | Type | Required | Description |
+| Parameter | Type | Required or optional | Description |
 |-----------|------|----------|-------------|
 {{#each this}}
-| `--{{Name}}` | {{Type}} | {{requiredIcon IsRequired}} | {{Description}} |
+| `--{{Name}}` | {{Type}} | {{#if IsRequired}}Required{{else}}Optional{{/if}} | {{Description}} |
 {{/each}}
 
 {{/each}}
