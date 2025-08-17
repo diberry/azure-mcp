@@ -45,7 +45,9 @@ public static class OptionsDiscovery
                     Description = matchingOption.Description,
                     UsagePercent = 100,
                     IsHidden = matchingOption.IsHidden,
-                    Source = matchingOption.ClassName
+                    Source = matchingOption.ClassName,
+                    RequiredText = matchingOption.IsRequired ? "Required" : "Optional",
+                    NL_Name = NaturalLanguageMapper.GetNaturalLanguage(mapping.ParameterName ?? "Unknown")
                 });
             }
         }
@@ -56,16 +58,30 @@ public static class OptionsDiscovery
             if (!commonParams.Any(p => p.Name.Equals(option.ParameterName, StringComparison.OrdinalIgnoreCase)))
             {
                 Console.WriteLine($"Debug: Adding unmapped option: {option.ParameterName}");
-                commonParams.Add(new CommonParameter
+
+                var newParameter = new CommonParameter
                 {
-                    Name = option.ParameterName,
+                    Name = option.ParameterName ?? "Unknown",
                     Type = MapCSharpTypeToJsonType(option.Type),
                     IsRequired = option.IsRequired,
                     Description = option.Description,
                     UsagePercent = 100,
                     IsHidden = option.IsHidden,
-                    Source = option.ClassName
-                });
+                    Source = option.ClassName,
+                    RequiredText = option.IsRequired ? "Required" : "Optional",
+                    NL_Name = NaturalLanguageMapper.GetNaturalLanguage(option.ParameterName ?? "") ?? "TBD"
+                };
+
+                if (newParameter.Name == "Unknown" )
+                {
+                    Console.WriteLine($"Warning: Parameter '{option.ParameterName}' has an unknown name.");
+                }
+                if (newParameter.NL_Name == "TBD")
+                {
+                    Console.WriteLine($"Warning: Parameter '{option.ParameterName}' could not be mapped to a natural language name.");
+                }
+
+                commonParams.Add(newParameter);
             }
         }
         

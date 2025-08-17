@@ -28,7 +28,19 @@
 | Parameter | Type | Required or optional | Description |
 |-----------|------|----------|-------------|
 {{#each option}}
-| `{{name}}` | {{type}} | {{#if IsRequired}}Required{{else}}Optional{{/if}} | {{description}} |
+| `{{name}}` | {{type}} | {{Required}} | {{description}} |
+{{/each}}
+{{else}}
+No parameters
+{{/if}}
+
+#### Parameters with Natural Language Names
+
+{{#if option}}
+| Parameter |  Required or optional | Description |
+|-----------------------|----------------------|-------------|
+{{#each option}}
+| {{NL_Name}} |  {{RequiredText}} | {{description}} |
 {{/each}}
 {{else}}
 No parameters

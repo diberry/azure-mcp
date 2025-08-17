@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
-
 using System.Text.Json;
-
 /// <summary>
 /// Handles all documentation generation logic, including data transformation,
 /// page generation, and common parameter analysis.
@@ -141,7 +139,15 @@ public static class DocumentationGenerator
             Description = tool.Description,
             SourceFile = tool.SourceFile,
             Area = tool.Area,
-            Option = tool.Option?.Where(opt => !commonParameterNames.Contains(opt.Name ?? "")).ToList()
+            Option = tool.Option?.Select(opt => new Option
+            {
+                Name = opt.Name,
+                NL_Name = NaturalLanguageMapper.GetNaturalLanguage(opt.Name ?? "Unknown"),
+                Type = opt.Type,
+                Required = opt.Required,
+                RequiredText = opt.Required ? "Required" : "Optional",
+                Description = opt.Description
+            }).Where(opt => !commonParameterNames.Contains(opt.Name ?? "")).ToList()
         }).ToList();
 
         var areaPageData = new Dictionary<string, object>

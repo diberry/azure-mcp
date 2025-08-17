@@ -5,56 +5,56 @@ using System.Text.Json;
 using System.IO;
 using Shared;
 
-namespace CSharpGenerator
+public static class NaturalLanguageMapper
 {
-    public static class NaturalLanguageMapper
+    private static readonly Dictionary<string, string> ParameterMappings = new();
+
+    static NaturalLanguageMapper()
     {
-        private static readonly Dictionary<string, string> ParameterMappings = new();
-
-        static NaturalLanguageMapper()
+        // Load mappings generated/mapped-parameters.json file
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "../../../.."));
+        var filePath = Path.Combine(projectRoot,"nl-parameters.json");
+        try
         {
-            // Load mappings generated/mapped-parameters.json file
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "../../../.."));
-            var filePath = Path.Combine(projectRoot, "generated", "mapped-parameters.json");
-            try
+            if (File.Exists(filePath))
             {
-                if (File.Exists(filePath))
+                var jsonContent = File.ReadAllText(filePath);
+                var mappings = JsonSerializer.Deserialize<List<MappedParameter>>(jsonContent, new JsonSerializerOptions
                 {
-                    var jsonContent = File.ReadAllText(filePath);
-                    var mappings = JsonSerializer.Deserialize<List<MappedParameter>>(jsonContent, new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
+                    PropertyNameCaseInsensitive = true
+                });
 
-                    if (mappings != null)
+                if (mappings != null)
+                {
+                    foreach (var mapping in mappings)
                     {
-                        foreach (var mapping in mappings)
-                        {
-                            ParameterMappings[mapping.Parameter] = mapping.NaturalLanguage;
-                        }
+                        ParameterMappings[mapping.Parameter] = mapping.NaturalLanguage;
                     }
                 }
-                else
-                {
-                    Console.WriteLine($"Error: Mapping file not found at {filePath}");
-                }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Error loading parameter mappings: {ex.Message}");
+                Console.WriteLine($"Error: Mapping file not found at {filePath}");
             }
         }
-
-        public static string GetNaturalLanguage(string parameterName)
+        catch (Exception ex)
         {
-            if (ParameterMappings.TryGetValue(parameterName, out var naturalLanguage))
-            {
-                return naturalLanguage;
-            }
-
-            Console.WriteLine($"Missing NaturalLanguage for parameter: {parameterName}");
-            return "TBD";
+            Console.WriteLine($"Error loading parameter mappings: {ex.Message}");
         }
+    }
+
+    public static string GetNaturalLanguage(string parameterName)
+    {
+
+        if (string.IsNullOrEmpty(parameterName)) return "TBD";
+
+        if (ParameterMappings.TryGetValue(parameterName, out var naturalLanguage))
+        {
+            return naturalLanguage;
+        }
+
+        Console.WriteLine($"Missing NaturalLanguage for parameter: {parameterName}");
+        return "TBD";
     }
 }

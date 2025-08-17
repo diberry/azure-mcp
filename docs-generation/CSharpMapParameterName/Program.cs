@@ -11,7 +11,7 @@ class Program
     {
         string cliOutputPath = "./generated/cli-output.json";
         string parametersPath = "./generated/parameters.json";
-        string outputPath = "./generated/mapped-parameters.json"; // Updated path to save the file in the ./data subdirectory
+        string outputPath = "./nl-parameters.json"; // Updated path to save the file in the ./data subdirectory
 
         try
         {

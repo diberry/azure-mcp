@@ -147,14 +147,26 @@ When modifying this system:
 3. Update templates and generator logic together
 4. Test with representative Azure MCP CLI data
 
-## Run map parameter name
+### Temp Order of operations
+
+This process reads existing published 1P documentation to get existing natural parameter names, builds a map to original parameter names, then is used during content generation to provide consisten natural language parameter names.
+
+Its important to read the output of Generate_MultiPageDocs to look for errors about missing parameter names, which need need to be added to nl-parameters.json
+
+## 1. Run term extraction from live docs
+
+```
+dotnet run --project CSharpTermRefinement/CSharpTermRefinement.csproj
+```
+## 2. Run map parameter name
 
 ```
 dotnet run --project CSharpMapParameterName/CSharpMapParameterName.csproj
 ```
 
-## Run term extraction from live docs
+## 3. Generate docs
 
 ```
-dotnet run --project CSharpTermRefinement/CSharpTermRefinement.csproj
+pwsh ./Generate-MultiPageDocs.ps1
 ```
+

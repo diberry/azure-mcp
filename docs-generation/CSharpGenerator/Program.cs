@@ -73,7 +73,7 @@ internal class Program
             {
                 PropertyNameCaseInsensitive = true
             });
-            
+
             if (additionalData != null)
             {
                 foreach (var kvp in additionalData)
@@ -98,7 +98,7 @@ internal class Program
 
         // Write output
         await File.WriteAllTextAsync(outputFile, result);
-        
+
         Console.WriteLine($"Generated: {outputFile}");
         return 0;
     }
@@ -145,8 +145,10 @@ public class Tool
 public class Option
 {
     public string? Name { get; set; }
+    public string? NL_Name { get; set; }
     public string? Type { get; set; }
     public bool Required { get; set; }
+    public string RequiredText { get; set; } = "";
     public string? Description { get; set; }
 }
 
@@ -175,6 +177,9 @@ public class CommonParameter
     public double UsagePercent { get; set; }
     public bool IsHidden { get; set; }
     public string Source { get; set; } = "";
+    public string RequiredText { get; set; } = "";
+    public string NL_Name { get; set; } = "";
+
 }
 
 // Extension method for regex replacement

@@ -1,0 +1,435 @@
+[
+  {
+    "Parameter": "account",
+    "NaturalLanguage": "Account"
+  },
+  {
+    "Parameter": "action",
+    "NaturalLanguage": "Action"
+  },
+  {
+    "Parameter": "aggregation",
+    "NaturalLanguage": "Aggregation"
+  },
+  {
+    "Parameter": "auth-method",
+    "NaturalLanguage": "Auth method"
+  },
+  {
+    "Parameter": "azure-ai-services",
+    "NaturalLanguage": "Azure AI services"
+  },
+  {
+    "Parameter": "blob-names",
+    "NaturalLanguage": "Blob names"
+  },
+  {
+    "Parameter": "cache",
+    "NaturalLanguage": "Cache"
+  },
+  {
+    "Parameter": "category",
+    "NaturalLanguage": "Category"
+  },
+  {
+    "Parameter": "certificate",
+    "NaturalLanguage": "Certificate"
+  },
+  {
+    "Parameter": "cluster",
+    "NaturalLanguage": "Cluster"
+  },
+  {
+    "Parameter": "cluster-uri",
+    "NaturalLanguage": "Cluster uri"
+  },
+  {
+    "Parameter": "command",
+    "NaturalLanguage": "Command"
+  },
+  {
+    "Parameter": "container",
+    "NaturalLanguage": "Container"
+  },
+  {
+    "Parameter": "content-type",
+    "NaturalLanguage": "Content type"
+  },
+  {
+    "Parameter": "cwd",
+    "NaturalLanguage": "Cwd"
+  },
+  {
+    "Parameter": "database",
+    "NaturalLanguage": "Database"
+  },
+  {
+    "Parameter": "datadog-resource",
+    "NaturalLanguage": "Datadog resource"
+  },
+  {
+    "Parameter": "deployment",
+    "NaturalLanguage": "Deployment"
+  },
+  {
+    "Parameter": "description",
+    "NaturalLanguage": "Description"
+  },
+  {
+    "Parameter": "directory-path",
+    "NaturalLanguage": "Directory path"
+  },
+  {
+    "Parameter": "display-name",
+    "NaturalLanguage": "Display name"
+  },
+  {
+    "Parameter": "duration",
+    "NaturalLanguage": "Duration"
+  },
+  {
+    "Parameter": "end-time",
+    "NaturalLanguage": "End time"
+  },
+  {
+    "Parameter": "endpoint",
+    "NaturalLanguage": "Endpoint"
+  },
+  {
+    "Parameter": "entity",
+    "NaturalLanguage": "Entity"
+  },
+  {
+    "Parameter": "environment",
+    "NaturalLanguage": "Environment"
+  },
+  {
+    "Parameter": "file-system",
+    "NaturalLanguage": "File system"
+  },
+  {
+    "Parameter": "filter",
+    "NaturalLanguage": "Filter"
+  },
+  {
+    "Parameter": "filter-path",
+    "NaturalLanguage": "Filter path"
+  },
+  {
+    "Parameter": "health-model",
+    "NaturalLanguage": "Health model"
+  },
+  {
+    "Parameter": "hostpool",
+    "NaturalLanguage": "Hostpool"
+  },
+  {
+    "Parameter": "hostpool-resource-id",
+    "NaturalLanguage": "Hostpool resource ID"
+  },
+  {
+    "Parameter": "hours",
+    "NaturalLanguage": "Hours"
+  },
+  {
+    "Parameter": "include-managed",
+    "NaturalLanguage": "Include managed"
+  },
+  {
+    "Parameter": "include-service-instruction-templates",
+    "NaturalLanguage": "Include service instruction templates"
+  },
+  {
+    "Parameter": "include-stop-sold-plans",
+    "NaturalLanguage": "Include stop sold plans"
+  },
+  {
+    "Parameter": "index",
+    "NaturalLanguage": "Index"
+  },
+  {
+    "Parameter": "interval",
+    "NaturalLanguage": "Interval"
+  },
+  {
+    "Parameter": "key",
+    "NaturalLanguage": "Key"
+  },
+  {
+    "Parameter": "key-type",
+    "NaturalLanguage": "Key type"
+  },
+  {
+    "Parameter": "kind",
+    "NaturalLanguage": "Kind"
+  },
+  {
+    "Parameter": "label",
+    "NaturalLanguage": "Label"
+  },
+  {
+    "Parameter": "language",
+    "NaturalLanguage": "Language"
+  },
+  {
+    "Parameter": "learn",
+    "NaturalLanguage": "Learn"
+  },
+  {
+    "Parameter": "license",
+    "NaturalLanguage": "License"
+  },
+  {
+    "Parameter": "limit",
+    "NaturalLanguage": "Limit"
+  },
+  {
+    "Parameter": "lookup-offer-in-tenant-level",
+    "NaturalLanguage": "Lookup offer in tenant level"
+  },
+  {
+    "Parameter": "market",
+    "NaturalLanguage": "Market"
+  },
+  {
+    "Parameter": "max-buckets",
+    "NaturalLanguage": "Max buckets"
+  },
+  {
+    "Parameter": "metric-names",
+    "NaturalLanguage": "Metric names"
+  },
+  {
+    "Parameter": "metric-namespace",
+    "NaturalLanguage": "Metric namespace"
+  },
+  {
+    "Parameter": "model-format",
+    "NaturalLanguage": "Model format"
+  },
+  {
+    "Parameter": "model-name",
+    "NaturalLanguage": "Model name"
+  },
+  {
+    "Parameter": "model-source",
+    "NaturalLanguage": "Model source"
+  },
+  {
+    "Parameter": "model-version",
+    "NaturalLanguage": "Model version"
+  },
+  {
+    "Parameter": "namespace",
+    "NaturalLanguage": "Namespace"
+  },
+  {
+    "Parameter": "old-testrun-id",
+    "NaturalLanguage": "Old testrun ID"
+  },
+  {
+    "Parameter": "param",
+    "NaturalLanguage": "Param"
+  },
+  {
+    "Parameter": "plan-id",
+    "NaturalLanguage": "Plan ID"
+  },
+  {
+    "Parameter": "prefix",
+    "NaturalLanguage": "Prefix"
+  },
+  {
+    "Parameter": "pricing-audience",
+    "NaturalLanguage": "Pricing audience"
+  },
+  {
+    "Parameter": "product-id",
+    "NaturalLanguage": "Product ID"
+  },
+  {
+    "Parameter": "publisher",
+    "NaturalLanguage": "Publisher"
+  },
+  {
+    "Parameter": "query",
+    "NaturalLanguage": "Query"
+  },
+  {
+    "Parameter": "queue",
+    "NaturalLanguage": "Queue"
+  },
+  {
+    "Parameter": "ramp-up-time",
+    "NaturalLanguage": "Ramp up time"
+  },
+  {
+    "Parameter": "recursive",
+    "NaturalLanguage": "Recursive"
+  },
+  {
+    "Parameter": "resource",
+    "NaturalLanguage": "Resource"
+  },
+  {
+    "Parameter": "resource-group",
+    "NaturalLanguage": "Resource group"
+  },
+  {
+    "Parameter": "resource-id",
+    "NaturalLanguage": "Resource ID"
+  },
+  {
+    "Parameter": "resource-type",
+    "NaturalLanguage": "Resource type"
+  },
+  {
+    "Parameter": "retry-delay",
+    "NaturalLanguage": "Retry delay"
+  },
+  {
+    "Parameter": "retry-max-delay",
+    "NaturalLanguage": "Retry max delay"
+  },
+  {
+    "Parameter": "retry-max-retries",
+    "NaturalLanguage": "Retry max retries"
+  },
+  {
+    "Parameter": "retry-mode",
+    "NaturalLanguage": "Retry mode"
+  },
+  {
+    "Parameter": "retry-network-timeout",
+    "NaturalLanguage": "Retry network timeout"
+  },
+  {
+    "Parameter": "scale-capacity",
+    "NaturalLanguage": "Scale capacity"
+  },
+  {
+    "Parameter": "scale-type",
+    "NaturalLanguage": "Scale type"
+  },
+  {
+    "Parameter": "scope",
+    "NaturalLanguage": "Scope"
+  },
+  {
+    "Parameter": "search-for-free-playground",
+    "NaturalLanguage": "Search for free playground"
+  },
+  {
+    "Parameter": "search-string",
+    "NaturalLanguage": "Search string"
+  },
+  {
+    "Parameter": "secret",
+    "NaturalLanguage": "Secret"
+  },
+  {
+    "Parameter": "serialized-content",
+    "NaturalLanguage": "Serialized content"
+  },
+  {
+    "Parameter": "server",
+    "NaturalLanguage": "Server"
+  },
+  {
+    "Parameter": "service",
+    "NaturalLanguage": "Service"
+  },
+  {
+    "Parameter": "sessionhost",
+    "NaturalLanguage": "Sessionhost"
+  },
+  {
+    "Parameter": "share",
+    "NaturalLanguage": "Share"
+  },
+  {
+    "Parameter": "sku",
+    "NaturalLanguage": "SKU"
+  },
+  {
+    "Parameter": "sku-capacity",
+    "NaturalLanguage": "Sku capacity"
+  },
+  {
+    "Parameter": "sku-id",
+    "NaturalLanguage": "Sku ID"
+  },
+  {
+    "Parameter": "source-id",
+    "NaturalLanguage": "Source ID"
+  },
+  {
+    "Parameter": "start-time",
+    "NaturalLanguage": "Start time"
+  },
+  {
+    "Parameter": "subscription",
+    "NaturalLanguage": "Subscription"
+  },
+  {
+    "Parameter": "subscription-name",
+    "NaturalLanguage": "Subscription name"
+  },
+  {
+    "Parameter": "table",
+    "NaturalLanguage": "Table"
+  },
+  {
+    "Parameter": "table-type",
+    "NaturalLanguage": "Table type"
+  },
+  {
+    "Parameter": "tags",
+    "NaturalLanguage": "Tags"
+  },
+  { "Parameter": "tenant", "NaturalLanguage": "Tenant" },
+  {
+    "Parameter": "test-id",
+    "NaturalLanguage": "Test ID"
+  },
+  {
+    "Parameter": "test-resource-name",
+    "NaturalLanguage": "Test resource name"
+  },
+  {
+    "Parameter": "testrun-id",
+    "NaturalLanguage": "Testrun ID"
+  },
+  {
+    "Parameter": "tier",
+    "NaturalLanguage": "Tier"
+  },
+  {
+    "Parameter": "topic",
+    "NaturalLanguage": "Topic"
+  },
+  {
+    "Parameter": "user",
+    "NaturalLanguage": "User"
+  },
+  {
+    "Parameter": "value",
+    "NaturalLanguage": "Value"
+  },
+  {
+    "Parameter": "vault",
+    "NaturalLanguage": "Vault"
+  },
+  {
+    "Parameter": "virtual-users",
+    "NaturalLanguage": "Virtual users"
+  },
+  {
+    "Parameter": "workbook-id",
+    "NaturalLanguage": "Workbook ID"
+  },
+  {
+    "Parameter": "workspace",
+    "NaturalLanguage": "Workspace"
+  }
+]
