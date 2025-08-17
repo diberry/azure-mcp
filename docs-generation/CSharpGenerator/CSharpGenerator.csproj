@@ -13,7 +13,9 @@
   <ItemGroup>
     <ProjectReference Include="../Shared/Shared.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="../NaturalLanguageNameGenerator/NaturalLanguageNameGenerator.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Handlebars.Net" Version="2.1.6" />
     <!-- Explicitly set Handlebars.Net version to 2.1.6 -->

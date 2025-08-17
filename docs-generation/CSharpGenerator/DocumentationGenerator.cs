@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 using System.Text.Json;
+using NaturalLanguageGenerator;
 /// <summary>
 /// Handles all documentation generation logic, including data transformation,
 /// page generation, and common parameter analysis.
@@ -142,7 +143,7 @@ public static class DocumentationGenerator
             Option = tool.Option?.Select(opt => new Option
             {
                 Name = opt.Name,
-                NL_Name = NaturalLanguageMapper.GetNaturalLanguage(opt.Name ?? "Unknown"),
+                NL_Name = NLP_Name.ToNaturalLanguage(opt.Name ?? "Unknown"),
                 Type = opt.Type,
                 Required = opt.Required,
                 RequiredText = opt.Required ? "Required" : "Optional",

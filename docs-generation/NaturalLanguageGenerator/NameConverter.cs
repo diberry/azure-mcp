@@ -1,8 +1,8 @@
 using System.Text.Json;
 
-namespace NaturalLanguageNameGenerator;
+namespace NaturalLanguageGenerator;
 
-public static class NameConverter
+public static class NLP_Name
 {
     public static string ToNaturalLanguage(string programmaticName)
     {

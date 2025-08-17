@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../NaturalLanguageNameGenerator/NaturalLanguageNameGenerator.csproj" />
+    <ProjectReference Include="../NaturalLanguageGenerator/NaturalLanguageGenerator.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System.Text.RegularExpressions;
+using NaturalLanguageGenerator;
 
 public static class OptionsDiscovery
 {
@@ -47,7 +48,7 @@ public static class OptionsDiscovery
                     IsHidden = matchingOption.IsHidden,
                     Source = matchingOption.ClassName,
                     RequiredText = matchingOption.IsRequired ? "Required" : "Optional",
-                    NL_Name = NaturalLanguageMapper.GetNaturalLanguage(mapping.ParameterName ?? "Unknown")
+                    NL_Name = NLP_Name.ToNaturalLanguage(mapping.ParameterName ?? "Unknown")
                 });
             }
         }
@@ -69,7 +70,7 @@ public static class OptionsDiscovery
                     IsHidden = option.IsHidden,
                     Source = option.ClassName,
                     RequiredText = option.IsRequired ? "Required" : "Optional",
-                    NL_Name = NaturalLanguageMapper.GetNaturalLanguage(option.ParameterName ?? "") ?? "TBD"
+                    NL_Name = NLP_Name.ToNaturalLanguage(option.ParameterName ?? "") ?? "TBD"
                 };
 
                 if (newParameter.Name == "Unknown" )

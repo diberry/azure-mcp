@@ -10,11 +10,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpGenerator", "CSharpGe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpTermRefinement", "CSharpTermRefinement\CSharpTermRefinement.csproj", "{12345678-90AB-CDEF-1234-567890ABCDEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpGenerator.Tests", "CSharpGenerator.Tests\CSharpGenerator.Tests.csproj", "{6DDE3974-08AC-4CFB-8896-06DB716E3CB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalLanguageNameGenerator", "NaturalLanguageGenerator\NaturalLanguageGenerator.csproj", "{GUID}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalLanguageNameGenerator", "NaturalLanguageNameGenerator\NaturalLanguageNameGenerator.csproj", "{GUID}"
-EndProject
-Project("{GUID}") = "NaturalLanguageNameGenerator.Tests", "NaturalLanguageNameGenerator.Tests\NaturalLanguageNameGenerator.Tests.csproj", "{GUID}"
+Project("{GUID}") = "NaturalLanguageNameGenerator.Tests", "NaturalLanguageGenerator.Tests\NaturalLanguageGenerator.Tests.csproj", "{GUID}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

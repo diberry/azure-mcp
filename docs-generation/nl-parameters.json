@@ -229,7 +229,7 @@
   },
   {
     "Parameter": "param",
-    "NaturalLanguage": "Param"
+    "NaturalLanguage": "Parameter"
   },
   {
     "Parameter": "plan-id",
@@ -353,11 +353,11 @@
   },
   {
     "Parameter": "sku-capacity",
-    "NaturalLanguage": "Sku capacity"
+    "NaturalLanguage": "SKU capacity"
   },
   {
     "Parameter": "sku-id",
-    "NaturalLanguage": "Sku ID"
+    "NaturalLanguage": "SKU ID"
   },
   {
     "Parameter": "source-id",
@@ -373,7 +373,7 @@
   },
   {
     "Parameter": "subscription-name",
-    "NaturalLanguage": "Subscription name"
+    "NaturalLanguage": "Subscription"
   },
   {
     "Parameter": "table",
