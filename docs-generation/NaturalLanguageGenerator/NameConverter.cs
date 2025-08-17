@@ -12,16 +12,12 @@ public static class NLP_Name
             return "TBD";
         }
 
-        // Check if the programmatic name exists in the nl-parameters.json file
-        var nlParametersPath = Path.Combine("./docs-generation", "nl-parameters.json");
-        if (File.Exists(nlParametersPath))
+        // Use the NLParametersLoader class to load parameters
+        var nlParameters = NLParametersLoader.LoadParameters();
+        if (nlParameters != null && nlParameters.TryGetValue(programmaticName, out var naturalLanguageName))
         {
-            var nlParameters = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(nlParametersPath));
-            if (nlParameters != null && nlParameters.TryGetValue(programmaticName, out var naturalLanguageName))
-            {
-                Console.WriteLine($"Found natural language name for '{programmaticName}': {naturalLanguageName}");
-                return naturalLanguageName;
-            }
+            Console.WriteLine($"Found natural language name for '{programmaticName}': {naturalLanguageName}");
+            return naturalLanguageName;
         }
 
         Console.WriteLine($"No natural language name found for '{programmaticName}'. Using default conversion.");
