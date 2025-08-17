@@ -1,22 +1,32 @@
 using System.Text.Json;
+using Shared;
 
 namespace NaturalLanguageGenerator;
 
 public static class NLParametersLoader
 {
-    private static readonly string nlParametersPath = Path.Combine("./docs-generation", "nl-parameters.json");
+    private static readonly string nlParametersPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../nl-parameters.json"));
+
+    public static string ParametersFilePath => nlParametersPath;
 
     public static Dictionary<string, string>? LoadParameters()
     {
         if (!File.Exists(nlParametersPath))
         {
-            Console.WriteLine($"Warning: nl-parameters.json file not found at '{Path.GetFullPath(nlParametersPath)}'.");
+            Console.WriteLine($"Warning: nl-parameters.json file not found at '{nlParametersPath}'.");
             return null;
         }
 
         try
         {
-            var nlParameters = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(nlParametersPath));
+            var jsonArray = JsonSerializer.Deserialize<List<MappedParameter>>(File.ReadAllText(nlParametersPath));
+            if (jsonArray == null)
+            {
+                return null;
+            }
+
+            // Convert the list of objects into a dictionary
+            var nlParameters = jsonArray.ToDictionary(item => item.Parameter, item => item.NaturalLanguage);
             return nlParameters;
         }
         catch (Exception ex)

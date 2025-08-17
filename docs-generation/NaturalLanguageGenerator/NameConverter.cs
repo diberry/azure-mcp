@@ -14,7 +14,15 @@ public static class NLP_Name
 
         // Use the NLParametersLoader class to load parameters
         var nlParameters = NLParametersLoader.LoadParameters();
-        if (nlParameters != null && nlParameters.TryGetValue(programmaticName, out var naturalLanguageName))
+        if (nlParameters == null)
+        {
+            var path = NLParametersLoader.ParametersFilePath;
+
+            Console.WriteLine($"Warning: nl-parameters.json file not found or could not be loaded from '{path ?? "unknown"}'. Proceeding with default conversion.");
+            return "TBD";
+        }
+
+        if (nlParameters.TryGetValue(programmaticName, out var naturalLanguageName))
         {
             Console.WriteLine($"Found natural language name for '{programmaticName}': {naturalLanguageName}");
             return naturalLanguageName;
