@@ -1,0 +1,48 @@
+using System.Text.Json;
+
+namespace NaturalLanguageNameGenerator;
+
+public static class NameConverter
+{
+    public static string ToNaturalLanguage(string programmaticName)
+    {
+        if (string.IsNullOrWhiteSpace(programmaticName))
+        {
+            Console.WriteLine("Warning: Programmatic name is null or empty. Returning 'TBD'.");
+            return "TBD";
+        }
+
+        // Check if the programmatic name exists in the nl-parameters.json file
+        var nlParametersPath = Path.Combine("./docs-generation", "nl-parameters.json");
+        if (File.Exists(nlParametersPath))
+        {
+            var nlParameters = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(nlParametersPath));
+            if (nlParameters != null && nlParameters.TryGetValue(programmaticName, out var naturalLanguageName))
+            {
+                Console.WriteLine($"Found natural language name for '{programmaticName}': {naturalLanguageName}");
+                return naturalLanguageName;
+            }
+        }
+
+        Console.WriteLine($"No natural language name found for '{programmaticName}'. Using default conversion.");
+
+        // Define a list of words to treat as acronyms
+        var acronyms = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "ID", "AI", "URL" };
+
+        // Replace hyphens with spaces and capitalize only the first word
+        var words = programmaticName.Split('-');
+        words[0] = char.ToUpper(words[0][0]) + words[0].Substring(1);
+
+        // Capitalize acronyms
+        for (int i = 1; i < words.Length; i++)
+        {
+            if (acronyms.Contains(words[i].ToUpper()))
+            {
+                words[i] = words[i].ToUpper();
+            }
+        }
+
+        Console.WriteLine($"Converted '{programmaticName}' to natural language: {string.Join(" ", words)}");
+        return string.Join(" ", words);
+    }
+}

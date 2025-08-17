@@ -170,3 +170,7 @@ dotnet run --project CSharpMapParameterName/CSharpMapParameterName.csproj
 pwsh ./Generate-MultiPageDocs.ps1
 ```
 
+## 4. Search for `TBD`
+
+If the process can't create a value, it inserts the `TBD` placeholder. Look for those in the generated markdown and provide better values based on content. 
+
