@@ -27,6 +27,8 @@ public static class TextCleanup
                 return null;
             }
 
+            List<MappedParameter> combinedParameters = new();
+
             for (int i = 0; i < RequiredFiles.Count; i++)
             {
                 var file = RequiredFiles[i];
@@ -43,11 +45,10 @@ public static class TextCleanup
 
             if (File.Exists(nlParametersPath))
             {
-                var jsonArray = JsonSerializer.Deserialize<List<MappedParameter>>(File.ReadAllText(nlParametersPath));
-                if (jsonArray != null)
+                var nlJsonArray = JsonSerializer.Deserialize<List<MappedParameter>>(File.ReadAllText(nlParametersPath));
+                if (nlJsonArray != null)
                 {
-                    mappedParametersDict = jsonArray.ToDictionary(item => item.Parameter, item => item.NaturalLanguage);
-                    mappedParameters = jsonArray.ToArray();
+                    combinedParameters.AddRange(nlJsonArray);
                 }
             }
             else
@@ -57,17 +58,25 @@ public static class TextCleanup
 
             if (File.Exists(textReplacerParametersPath))
             {
-                var jsonArray = JsonSerializer.Deserialize<List<MappedParameter>>(File.ReadAllText(textReplacerParametersPath));
-                if (jsonArray != null)
+                var textReplaceJsonArray = JsonSerializer.Deserialize<List<MappedParameter>>(File.ReadAllText(textReplacerParametersPath));
+                if (textReplaceJsonArray != null)
                 {
-                    mappedParametersDict = jsonArray.ToDictionary(item => item.Parameter, item => item.NaturalLanguage);
-                    mappedParameters = jsonArray.ToArray();
+                    combinedParameters.AddRange(textReplaceJsonArray);
                 }
             }
             else
             {
                 Console.WriteLine($"Warning: static-text-replacement.json file not found at '{textReplacerParametersPath}'.");
             }
+
+            // Combine and deduplicate parameters based on the 'Parameter' property
+            mappedParameters = combinedParameters
+                .GroupBy(p => p.Parameter)
+                .Select(g => g.First())
+                .ToArray();
+
+            // Update the dictionary for quick lookups
+            mappedParametersDict = mappedParameters.ToDictionary(item => item.Parameter, item => item.NaturalLanguage);
 
             return mappedParameters;
         }
