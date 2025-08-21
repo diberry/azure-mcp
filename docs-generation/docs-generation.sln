@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpTermRefinement", "CSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalLanguageGenerator", "NaturalLanguageGenerator\NaturalLanguageGenerator.csproj", "{GUID}"
 EndProject
-Project("{GUID}") = "NaturalLanguageGenerator.Tests", "NaturalLanguageGenerator.Tests\NaturalLanguageGenerator.Tests.csproj", "{GUID}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

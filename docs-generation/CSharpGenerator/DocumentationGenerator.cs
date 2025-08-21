@@ -2,12 +2,17 @@
 // Licensed under the MIT License.
 using System.Text.Json;
 using NaturalLanguageGenerator;
+using Shared; // Added namespace for MappedParameter
 /// <summary>
 /// Handles all documentation generation logic, including data transformation,
 /// page generation, and common parameter analysis.
 /// </summary>
 public static class DocumentationGenerator
 {
+    
+    public static MappedParameter[]? ReplacementsParams;
+
+
     /// <summary>
     /// Generates comprehensive documentation from CLI output data.
     /// </summary>
@@ -16,8 +21,12 @@ public static class DocumentationGenerator
         string outputDir,
         bool generateIndex = false,
         bool generateCommon = false,
-        bool generateCommands = false)
+        bool generateCommands = false,
+         MappedParameter[]? replacementsParams = null) // Made optional parameter nullable
     {
+
+        ReplacementsParams = replacementsParams; // Corrected assignment to use the parameter
+
         // Read CLI output
         var cliOutputJson = await File.ReadAllTextAsync(cliOutputFile);
         var cliOutput = JsonSerializer.Deserialize<CliOutput>(cliOutputJson, new JsonSerializerOptions
@@ -35,8 +44,8 @@ public static class DocumentationGenerator
         var transformedData = TransformCliOutput(cliOutput);
 
         // Add source code discovered common parameters
-        var sourceCommonParams = await OptionsDiscovery.DiscoverCommonParametersFromSource();
-        
+        var sourceCommonParams = await OptionsDiscovery.DiscoverCommonParametersFromSource(ReplacementsParams);
+
         // Merge source-discovered parameters with CLI-discovered ones
         transformedData = MergeCommonParameters(transformedData, sourceCommonParams);
 
@@ -46,7 +55,7 @@ public static class DocumentationGenerator
         // Generate area pages
         var templatesDir = Path.Combine("..", "templates");
         var areaTemplate = Path.Combine(templatesDir, "area-template.hbs");
-        
+
         foreach (var area in transformedData.Areas)
         {
             await GenerateAreaPageAsync(area.Key, area.Value, transformedData, outputDir, areaTemplate);
@@ -143,7 +152,7 @@ public static class DocumentationGenerator
             Option = tool.Option?.Select(opt => new Option
             {
                 Name = opt.Name,
-                NL_Name = NLP_Name.ToNaturalLanguage(opt.Name ?? "Unknown"),
+                NL_Name = ReplacementsParams?.FirstOrDefault(rp => rp.Parameter == opt.Name)?.NaturalLanguage ?? "TBD",
                 Type = opt.Type,
                 Required = opt.Required,
                 RequiredText = opt.Required ? "Required" : "Optional",
