@@ -1,0 +1,19 @@
+[
+    {
+        "Parameter": "e.g.",
+        "NaturalLanguage": "for example"
+    },
+    {
+        "Parameter": "i.e.",
+        "NaturalLanguage": "in other words"
+    },
+    {
+        "Parameter": "id",
+        "NaturalLanguage": "ID"
+    },
+    {
+        "Parameter": "url",
+        "NaturalLanguage": "URL"
+    }
+
+]

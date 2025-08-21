@@ -2,6 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug Generate Docs",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/docs-generation/CSharpGenerator/bin/Debug/net9.0/CSharpGenerator.dll",
+            "args": [
+                "generate-docs",
+                "../generated/cli-output.json",
+                "../generated/multi-page",
+                "--index",
+                "--common",
+                "--commands"
+            ],
+            "cwd": "${workspaceFolder}/docs-generation/CSharpGenerator",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": "Attach to .NET Process",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
             "name": "PowerShell Interactive Session",
             "type": "PowerShell",
             "request": "launch",

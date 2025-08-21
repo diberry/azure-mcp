@@ -2,11 +2,39 @@
 // Licensed under the MIT License.
 
 using System.Text.Json;
+using System.IO;
+using CSharpGenerator;
+using Shared; // Added namespace for MappedParameter
+
+
 
 internal class Program
 {
+    public static Config AppConfig { get; set; } = new Config(); // Initialized AppConfig to resolve nullability error
+    public static MappedParameter[]? ReplacementsParams;
+
     private static async Task<int> Main(string[] args)
     {
+
+        // Load and validate config
+        var configPath = Path.Combine(AppContext.BaseDirectory, "../../../../config.json");
+        Console.WriteLine($"Loading config from: {configPath}");
+        try
+        {
+            var mappedParams = Config.Load(configPath); // Updated to call Load method statically
+            ReplacementsParams = mappedParams;
+            if (ReplacementsParams == null)
+            {
+                Console.WriteLine("Error: Failed to load replacement parameters.");
+                return 1;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            Environment.Exit(1);
+        }
+
         if (args.Length == 0)
         {
             Console.Error.WriteLine("Usage: CSharpGenerator <mode> [arguments...]");
@@ -73,7 +101,7 @@ internal class Program
             {
                 PropertyNameCaseInsensitive = true
             });
-            
+
             if (additionalData != null)
             {
                 foreach (var kvp in additionalData)
@@ -98,7 +126,7 @@ internal class Program
 
         // Write output
         await File.WriteAllTextAsync(outputFile, result);
-        
+
         Console.WriteLine($"Generated: {outputFile}");
         return 0;
     }
@@ -122,7 +150,8 @@ internal class Program
             outputDir,
             generateIndex,
             generateCommon,
-            generateCommands);
+            generateCommands,
+            ReplacementsParams);
     }
 }
 
@@ -145,8 +174,10 @@ public class Tool
 public class Option
 {
     public string? Name { get; set; }
+    public string? NL_Name { get; set; }
     public string? Type { get; set; }
     public bool Required { get; set; }
+    public string RequiredText { get; set; } = "";
     public string? Description { get; set; }
 }
 
@@ -175,7 +206,11 @@ public class CommonParameter
     public double UsagePercent { get; set; }
     public bool IsHidden { get; set; }
     public string Source { get; set; } = "";
+    public string RequiredText { get; set; } = "";
+    public string NL_Name { get; set; } = "";
+
 }
+
 
 // Extension method for regex replacement
 public static class StringExtensions

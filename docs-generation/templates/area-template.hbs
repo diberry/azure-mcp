@@ -25,10 +25,22 @@
 #### Parameters
 
 {{#if option}}
-| Parameter | Type | Required | Description |
+| Parameter | Type | Required or optional | Description |
 |-----------|------|----------|-------------|
 {{#each option}}
-| `{{name}}` | {{type}} | {{#if required}}Yes{{else}}No{{/if}} | {{description}} |
+| `{{name}}` | {{type}} | {{Required}} | {{description}} |
+{{/each}}
+{{else}}
+No parameters
+{{/if}}
+
+#### Parameters with Natural Language Names
+
+{{#if option}}
+| Parameter |  Required or optional | Description |
+|-----------------------|----------------------|-------------|
+{{#each option}}
+| {{NL_Name}} |  {{RequiredText}} | {{description}} |
 {{/each}}
 {{else}}
 No parameters
